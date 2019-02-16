@@ -1,0 +1,20 @@
+html, body{
+    padding: 0; 
+    margin: 0; 
+}
+
+h1{
+    text-align: center;
+}
+
+
+body{
+    background-color: white; 
+}
+
+.articleBox{
+    background-color: #FF6B6B;
+    border: 2px dotted black;
+    margin: .5em; 
+    color: white;
+}
