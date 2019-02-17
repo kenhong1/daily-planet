@@ -20,12 +20,48 @@ app.get("/articles", function(req, res){
             res.render("articles/index",{myArticles: articles});
 }); 
 
+//post
+app.get('/articles/new', function(req,res) {
+    res.render('articles/new');
+});
+
+//post
+app.post('/articles', function(req,res) {
+    var articles = fs.readFileSync("./articles.json");
+    articles = JSON.parse(articles);
+    articles.push(req.body);
+    fs.writeFileSync('./articles.json', JSON.stringify(articles));
+    res.redirect("/articles");
+});
+
+
+//edit 
+app.get("/articles/:id/edit", function(req, res){
+    var articles = fs.readFileSync("./articles.json");
+    articles = JSON.parse(articles); 
+    var articleIndex = parseInt(req.params.id);
+    res.render("articles/edit", {article: articles[articleIndex], articleId: articleIndex}); 
+})
+
+//update 
+app.put("/articles:id", function(req, res){
+    var article = fs.readFileSync("./articles.json")
+    articles = JSON.parse(articles)
+    var articleIndex = parseInt(req.params.id);
+    articles[articleIndex].title = req.body.title; 
+    articles[articleIndex].body = req.body.body; 
+    fs.writeFileSync("./articles.json", JSON.stringify(articles));
+    res.redirect("/articles/" + articleIndex); 
+    
+})
+
 app.get("/articles/:id", function(req, res){
     var articles = fs.readFileSync("./articles.json")
-        articles = JSON.parse(articles); 
-            var articleIndex = parseInt(req.params.id); 
-                res.render("articles/show", {myArticles: articles[articleIndex]})
-}); 
+    articles = JSON.parse(articles); 
+    var articleIndex = parseInt(req.params.id); 
+    res.render("articles/show", {myArticles: articles[articleIndex]})
+});                 
+
 
 
 
