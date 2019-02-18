@@ -1,8 +1,10 @@
 <% include ../partials/header.ejs %>
 
-<h1> Articles </h1>
+<h1> Daily Planet News </h1>
 
+<div id = "addBox">
 <a href = "/articles/new"> Post An Article </a>
+</div>
 
 <br>
 
@@ -11,10 +13,12 @@
 <div class = "articleBox">
         <a href = "/articles/<%= id %>/edit"> Edit </a>
 
-
         <h3> <%= article.title %> </h3>
         <p> <%= article.body %> </p>
 
+<form method = "POST" action = "/articles/ <%= id %>/?_method=DELETE">
+    <input type = "submit" value = "DELETE"> 
+</form>
 
 </div>
 

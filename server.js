@@ -3,8 +3,10 @@ console.log("server up" )
 var express = require("express"); 
 var app = express(); 
 var fs = require("fs"); 
+// var methodOverride = require("method-override"); 
 
 
+// app.use(methodOverride('_method'));
 app.set("view engine", "ejs");
 app.use(express.static("static"));
 app.use(express.urlencoded({extended: false})); 
@@ -55,18 +57,24 @@ app.put("/articles:id", function(req, res){
     
 })
 
+
+
+
+//delete
+app.delete("/articles/:id", function(req, res){
+    var articles = fs.readFileSync("./articles.json");
+    articles = JSON.parse(articles); 
+    articles.splice(parseInt(req.params.id), 1);
+    fs.writeFileSync("./articles.json", JSON.stringify(articles));
+    res.redirect("/articles"); 
+}); 
+
 app.get("/articles/:id", function(req, res){
     var articles = fs.readFileSync("./articles.json")
     articles = JSON.parse(articles); 
     var articleIndex = parseInt(req.params.id); 
     res.render("articles/show", {myArticles: articles[articleIndex]})
 });                 
-
-
-
-
-
-
 
 
 
