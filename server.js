@@ -58,6 +58,12 @@ app.put("/articles:id", function(req, res){
 })
 
 
+app.get("/articles/:id", function(req, res){
+    var articles = fs.readFileSync("./articles.json")
+    articles = JSON.parse(articles); 
+    var articleIndex = parseInt(req.params.id); 
+    res.render("articles/show", {myArticles: articles[articleIndex]})
+});                 
 
 
 //delete
@@ -69,12 +75,6 @@ app.delete("/articles/:id", function(req, res){
     res.redirect("/articles"); 
 }); 
 
-app.get("/articles/:id", function(req, res){
-    var articles = fs.readFileSync("./articles.json")
-    articles = JSON.parse(articles); 
-    var articleIndex = parseInt(req.params.id); 
-    res.render("articles/show", {myArticles: articles[articleIndex]})
-});                 
 
 
 
