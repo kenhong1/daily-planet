@@ -42,7 +42,7 @@ app.get("/articles/:id/edit", function(req, res){
     var articles = fs.readFileSync("./articles.json");
     articles = JSON.parse(articles); 
     var articleIndex = parseInt(req.params.id);
-    res.render("articles/edit", {article: articles[articleIndex], articleId: articleIndex}); 
+    res.render("articles/edit", {article: articles[articleIndex], articleId: articleIndex});
 })
 
 //update 
@@ -72,7 +72,7 @@ app.delete("/articles/:id", function(req, res){
     articles = JSON.parse(articles); 
     articles.splice(parseInt(req.params.id), 1);
     fs.writeFileSync("./articles.json", JSON.stringify(articles));
-    res.redirect("/articles"); 
+        res.redirect("/articles"); 
 }); 
 
 
